@@ -9,7 +9,7 @@ export const usePartyStore = defineStore({
       lat: 0,
       lon: 0,
     },
-    mapVisible: true,
+    mapVisible: false,
   }),
   getters: {
     parties: (state) => state.partyList,

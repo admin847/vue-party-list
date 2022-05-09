@@ -1,15 +1,8 @@
 <template>
-  <div class="hz">
+  <!-- <div class="hz">
     lat = {{ lat }} - lon = {{ lon }}
-  </div>
-  <div
-    :class="[
-      'map-wrapper',
-      {
-        hidden: !partyStore.mapVisible,
-      },
-    ]"
-  >
+  </div> -->
+  <div v-show="partyStore.mapVisible" class="map-wrapper">
     <div ref="appmap" class="map"></div>
   </div>
 </template>
@@ -63,8 +56,5 @@ onUpdated(() => {
   padding: 20px;
   border: 2px solid teal;
   min-height: 500px;
-}
-.hidden {
-  border: 5px solid red;
 }
 </style>
