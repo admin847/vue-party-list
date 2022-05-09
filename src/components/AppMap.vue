@@ -1,7 +1,4 @@
 <template>
-  <!-- <div class="hz">
-    lat = {{ lat }} - lon = {{ lon }}
-  </div> -->
   <div v-show="partyStore.mapVisible" class="map-wrapper">
     <div ref="appmap" class="map"></div>
   </div>
