@@ -1,6 +1,11 @@
 @import './helpers/helpers';
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
+  overflow-x: hidden;
   font-family: sans-serif;
   font-size: 16px;
 }

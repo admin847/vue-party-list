@@ -1,5 +1,11 @@
 <template>
-  <div v-show="partyStore.mapVisible" class="map-wrapper">
+  <div :class="['map-wrapper', {
+    hidden: !partyStore.mapVisible
+  }]">
+    <div
+      @click.stop="partyStore.mapVisible = false"
+      class="map-substrate"
+    ></div>
     <div ref="appmap" class="map"></div>
   </div>
 </template>
@@ -50,8 +56,34 @@ onUpdated(() => {
 
 <style lang="scss" scoped>
 .map {
-  padding: 20px;
+  // padding: 20px;
   border: 2px solid teal;
-  min-height: 500px;
+  width: 80%;
+  height: 80%;
+}
+
+.map-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .35s;
+}
+.map-substrate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hidden {
+  left: -100%;
 }
 </style>
