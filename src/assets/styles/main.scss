@@ -1,0 +1,25 @@
+@import './helpers/helpers';
+
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 15px;
+}
+
+.h1 {
+  font-size: 50px;
+  margin-bottom: 30px;
+}
+
+.h2 {
+  font-size: 32px;
+}
+
+.h3 {
+  font-size: 22px;
+}
