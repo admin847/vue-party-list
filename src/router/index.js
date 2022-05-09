@@ -9,16 +9,18 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-      alias: '/party'
+      alias: '/party',
     },
     {
       path: '/party/:id',
       name: 'party',
       component: PartyView,
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      // component: () => import('../views/PartyView.vue'),
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'E404',
+      alias: '/E404',
+      component: () => import('../views/E404View.vue'),
     },
   ],
 });
