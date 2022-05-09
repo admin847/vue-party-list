@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <router-view></router-view>
-    <teleport to="body">
-      <app-map v-show="partyStore.mapVisible" />
-    </teleport>
+      <app-map />
+    <!-- <teleport to="body">
+    </teleport> -->
   </div>
 </template>
 

@@ -1,39 +1,70 @@
 <template>
-  <div class="map">
-    <div>x = {{ x }} y = {{ y }}</div>
-    <iframe
-      :src="`https://www.openstreetmap.org/export/embed.html?bbox=${a}%2C${b}%2C${c}%2C${d}&amp;layer=mapnik&amp;marker=${x}%2C${y}`"
-      width="425"
-      height="350"
-      frameborder="0"
-      scrolling="no"
-      marginheight="0"
-      marginwidth="0"
-      style="border: 1px solid black"
-    ></iframe>
+  <div class="hz">
+    lat = {{ lat }} - lon = {{ lon }}
+  </div>
+  <div
+    :class="[
+      'map-wrapper',
+      {
+        hidden: !partyStore.mapVisible,
+      },
+    ]"
+  >
+    <div ref="appmap" class="map"></div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { ref, computed, onMounted, onUpdated } from 'vue';
 import { usePartyStore } from '@/stores/party';
+import 'leaflet/dist/leaflet.css';
+import leaflet from 'leaflet/dist/leaflet.js';
 
 const partyStore = usePartyStore();
 
 const coordinates = computed(() => partyStore.currentPartyLocation);
 
-const x = computed(() => +coordinates.value.x);
-const y = computed(() => +coordinates.value.y);
+const lat = computed(() => +coordinates.value.lat);
+const lon = computed(() => +coordinates.value.lon);
 
-const a = computed(() => y.value - 0.018);
-const c = computed(() => y.value + 0.018);
-const b = computed(() => x.value - 0.007);
-const d = computed(() => x.value + 0.007);
+const appmap = ref(null);
+
+// leaflet
+let map;
+onMounted(() => {
+  map = leaflet.map(appmap.value).setView([lat.value, lon.value], 9);
+
+  leaflet
+    .tileLayer(
+      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic2VyaGlpbCIsImEiOiJjbDJ5bjc4NHUwNHQyM2Rwc2p4ZndnZDlvIn0.e7yCoAdxM9SnbfomElGMTg',
+      {
+        attribution:
+          'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken:
+          'pk.eyJ1Ijoic2VyaGlpbCIsImEiOiJjbDJ5bjc4NHUwNHQyM2Rwc2p4ZndnZDlvIn0.e7yCoAdxM9SnbfomElGMTg',
+      }
+    )
+    .addTo(map);
+  leaflet.marker([lat.value, lon.value]).addTo(map);
+});
+
+onUpdated(() => {
+  map.setView([lat.value, lon.value], 9);
+  leaflet.marker([lat.value, lon.value]).addTo(map);
+});
 </script>
 
 <style lang="scss" scoped>
 .map {
   padding: 20px;
   border: 2px solid teal;
+  min-height: 500px;
+}
+.hidden {
+  border: 5px solid red;
 }
 </style>

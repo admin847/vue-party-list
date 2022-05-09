@@ -6,10 +6,10 @@ export const usePartyStore = defineStore({
   state: () => ({
     partyList: [],
     currentPartyLocation: {
-      x: 0,
-      y: 0,
+      lat: 0,
+      lon: 0,
     },
-    mapVisible: false,
+    mapVisible: true,
   }),
   getters: {
     parties: (state) => state.partyList,
@@ -28,8 +28,8 @@ export const usePartyStore = defineStore({
       this.partyList = partyListJSON;
     },
     setCurrentPartyLocation(coordinates) {
-      this.currentPartyLocation.x = coordinates.x;
-      this.currentPartyLocation.y = coordinates.y;
+      this.currentPartyLocation.lat = coordinates.lat;
+      this.currentPartyLocation.lon = coordinates.lon;
     },
     showMap() {
       this.mapVisible = true;

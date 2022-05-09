@@ -9,7 +9,7 @@
   <div>
     {{ currentParty.description }}
   </div>
-  <button @click="showMap">Посмотреть на карте</button>
+  <button @click="showHideMap">Посмотреть на карте</button>
 </template>
 
 <script setup>
@@ -28,7 +28,7 @@ onBeforeMount(() => {
   partyStore.setCurrentPartyLocation(currentParty.value.coordinates);
 });
 
-const showMap = () => {
+const showHideMap = () => {
   if (!partyStore.mapVisible) {
     partyStore.showMap();
   } else {
