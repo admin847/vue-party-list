@@ -1,20 +1,17 @@
 <template>
   <home-hero />
   <app-search v-model="searchQuery" />
-  <!-- <ul class="parties-list"> -->
-    <transition-group name="list" tag="ul" class="parties-list">
-      <li v-for="party in parties" :key="party.id" class="party-item">
-        <router-link :to="'/party/' + party.id">
-          <img :src="party.img" :alt="party.title" class="party-item__img" />
-          <div class="party-item__content">
-            <div class="party-item__date">{{ party.date }}</div>
-            <h3 class="h3 party-item__title">{{ party.title }}</h3>
-            <div class="party-item__place">{{ party.place }}</div>
-          </div>
-        </router-link>
-      </li>
-    </transition-group>
-  <!-- </ul> -->
+  <transition-group name="list" tag="ul" class="parties-list">
+    <party-item
+      v-for="party in parties"
+      :key="party.id"
+      :id="party.id"
+      :title="party.title"
+      :date="party.date"
+      :place="party.place"
+      :img="party.img"
+    />
+  </transition-group>
   <div ref="obs" class="observer"></div>
 </template>
 
@@ -23,6 +20,7 @@ import { ref, onMounted, computed } from 'vue';
 import { usePartyStore } from '@/stores/party';
 import HomeHero from '@/components/Home/HomeHero.vue';
 import AppSearch from '@/components/UI/AppSearch.vue';
+import PartyItem from '@/components/Home/PartyItem.vue';
 
 const partyStore = usePartyStore();
 
@@ -86,7 +84,7 @@ onMounted(() => {
 // ===== анимашки ======
 .list-enter-active,
 .list-leave-active {
-  transition: all .35s ease;
+  transition: all 0.35s ease;
 }
 .list-enter-from,
 .list-leave-to {
