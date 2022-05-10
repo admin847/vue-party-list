@@ -1,8 +1,13 @@
 <template>
   <h1 class="h1">Party list</h1>
-  <input @keydown.esc="searchQuery = ''" v-model="searchQuery" type="text" placeholder="Пошук..." />
+  <input
+    @keydown.esc="searchQuery = ''"
+    v-model="searchQuery"
+    type="text"
+    placeholder="Пошук..."
+  />
   <ul class="parties-list">
-    <li v-for="party in filteredParties" :key="party.id" class="party-item">
+    <li v-for="party in parties" :key="party.id" class="party-item">
       <router-link :to="'/party/' + party.id">
         <img :src="party.img" alt="party-item-img" />
         <div class="party-item__title">{{ party.title }}</div>
@@ -19,27 +24,10 @@ import { usePartyStore } from '@/stores/party';
 
 const partyStore = usePartyStore();
 
-const parties = computed(() => {
-  return partyStore.parties;
-});
-
 const searchQuery = ref('');
 
-const page = ref(1);
-const itemsPerPage = 10;
-
-const filteredParties = computed(() => {
-  let start = 0;
-  let end = itemsPerPage * page.value;
-  if (searchQuery.value === '') {
-    return parties.value.slice(start, end);
-  } else {
-    return parties.value.filter((item) => {
-      return item['title']
-        .toLowerCase()
-        .includes(searchQuery.value.toLowerCase());
-    });
-  }
+const parties = computed(() => {
+  return partyStore.parties(searchQuery.value);
 });
 
 // ===== OBSERVER =====
@@ -49,9 +37,9 @@ onMounted(() => {
   const observer = new IntersectionObserver((entries) => {
     if (
       entries[0].isIntersecting &&
-      page.value < parties.value.length / itemsPerPage
+      partyStore.page < partyStore.partyList.length / partyStore.itemsPerPage
     ) {
-      page.value++;
+      partyStore.increasePage();
     }
   });
   observer.observe(obs.value);
@@ -75,5 +63,12 @@ img {
 }
 .observer {
   height: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 15px 10px;
+  margin-bottom: 20px;
+  border: 2px solid teal;
 }
 </style>
