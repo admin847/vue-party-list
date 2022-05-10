@@ -1,26 +1,28 @@
 <template>
-  <h1 class="h1">Party list</h1>
-  <input
-    @keydown.esc="searchQuery = ''"
-    v-model="searchQuery"
-    type="text"
-    placeholder="Пошук..."
-  />
-  <ul class="parties-list">
-    <li v-for="party in parties" :key="party.id" class="party-item">
-      <router-link :to="'/party/' + party.id">
-        <img :src="party.img" alt="party-item-img" />
-        <div class="party-item__title">{{ party.title }}</div>
-        <div class="party-item__date">{{ party.date }}</div>
-      </router-link>
-    </li>
-  </ul>
+  <home-hero />
+  <app-search v-model="searchQuery" />
+  <!-- <ul class="parties-list"> -->
+    <transition-group name="list" tag="ul" class="parties-list">
+      <li v-for="party in parties" :key="party.id" class="party-item">
+        <router-link :to="'/party/' + party.id">
+          <img :src="party.img" :alt="party.title" class="party-item__img" />
+          <div class="party-item__content">
+            <div class="party-item__date">{{ party.date }}</div>
+            <h3 class="h3 party-item__title">{{ party.title }}</h3>
+            <div class="party-item__place">{{ party.place }}</div>
+          </div>
+        </router-link>
+      </li>
+    </transition-group>
+  <!-- </ul> -->
   <div ref="obs" class="observer"></div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { usePartyStore } from '@/stores/party';
+import HomeHero from '@/components/Home/HomeHero.vue';
+import AppSearch from '@/components/UI/AppSearch.vue';
 
 const partyStore = usePartyStore();
 
@@ -48,27 +50,49 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .party-item {
-  border: 2px solid teal;
-  margin-bottom: 20px;
-  padding: 20px;
+  border-bottom: 2px solid $color-white;
+  transition: all 0.35s;
+  &:hover {
+    background-color: $color-accent;
+    a {
+      color: $color-black;
+    }
+  }
   a {
     display: flex;
-    justify-content: space-between;
     text-decoration: none;
-    color: #313131;
+    color: $color-white;
+  }
+  &__img {
+    max-width: 540px;
+    border-right: 2px solid $color-white;
+    padding: 20px;
+  }
+  &__content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  &__date {
+    margin-bottom: 50px;
+  }
+  &__title {
+    margin-bottom: auto;
+  }
+  &__place {
+    font-size: 16px;
   }
 }
-img {
-  max-width: 150px;
+// ===== анимашки ======
+.list-enter-active,
+.list-leave-active {
+  transition: all .35s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
 }
 .observer {
-  height: 20px;
-}
-
-input {
-  width: 100%;
-  padding: 15px 10px;
-  margin-bottom: 20px;
-  border: 2px solid teal;
+  height: 50px;
 }
 </style>

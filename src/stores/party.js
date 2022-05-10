@@ -6,7 +6,7 @@ export const usePartyStore = defineStore({
   state: () => ({
     partyList: [],
     page: 1,
-    itemsPerPage: 10,
+    itemsPerPage: 5,
     currentPartyLocation: {
       lat: 0,
       lon: 0,
