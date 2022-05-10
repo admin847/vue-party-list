@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'ST-SimpleSquare';
+    src: url('../fonts/STSimpleSquareRegular.eot');
+    src: url('../fonts/') format('embedded-opentype'),
+        url('../fonts/STSimpleSquareRegular.woff2') format('woff2'),
+        url('../fonts/STSimpleSquareRegular.woff') format('woff'),
+        url('../fonts/STSimpleSquareRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Regular.eot');
+    src: url('../fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/OpenSans-Regular.woff2') format('woff2'),
+        url('../fonts/OpenSans-Regular.woff') format('woff'),
+        url('../fonts/OpenSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+

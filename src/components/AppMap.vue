@@ -65,7 +65,6 @@ onUpdated(() => {
 
 <style lang="scss" scoped>
 .map {
-  // padding: 20px;
   border: 2px solid $color-accent;
   width: 80%;
   height: 80%;
