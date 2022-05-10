@@ -35,6 +35,9 @@ const props = defineProps({
 .party-item {
   border-bottom: 2px solid $color-white;
   transition: all 0.35s;
+  &:last-of-type {
+    border-bottom: none;
+  }
   &:hover {
     background-color: $color-accent;
     a {

@@ -13,7 +13,7 @@
         :img="party.img"
       />
     </transition-group>
-    <div ref="obs" class="observer"></div>
+    <div ref="obs" v-show="hasNexPage" class="observer"></div>
   </main>
 </template>
 
@@ -28,6 +28,10 @@ const partyStore = usePartyStore();
 
 const searchQuery = ref('');
 
+const hasNexPage = computed(
+  () => partyStore.page < partyStore.partyList.length / partyStore.itemsPerPage
+);
+
 const parties = computed(() => {
   return partyStore.parties(searchQuery.value);
 });
@@ -39,7 +43,8 @@ onMounted(() => {
   const observer = new IntersectionObserver((entries) => {
     if (
       entries[0].isIntersecting &&
-      partyStore.page < partyStore.partyList.length / partyStore.itemsPerPage
+      // partyStore.page < partyStore.partyList.length / partyStore.itemsPerPage
+      hasNexPage.value
     ) {
       partyStore.increasePage();
     }
