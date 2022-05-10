@@ -1,18 +1,20 @@
 <template>
-  <home-hero />
-  <app-search v-model="searchQuery" />
-  <transition-group name="list" tag="ul" class="parties-list">
-    <party-item
-      v-for="party in parties"
-      :key="party.id"
-      :id="party.id"
-      :title="party.title"
-      :date="party.date"
-      :place="party.place"
-      :img="party.img"
-    />
-  </transition-group>
-  <div ref="obs" class="observer"></div>
+  <main>
+    <home-hero />
+    <app-search v-model="searchQuery" />
+    <transition-group name="list" tag="ul" class="parties-list">
+      <party-item
+        v-for="party in parties"
+        :key="party.id"
+        :id="party.id"
+        :title="party.title"
+        :date="party.date"
+        :place="party.place"
+        :img="party.img"
+      />
+    </transition-group>
+    <div ref="obs" class="observer"></div>
+  </main>
 </template>
 
 <script setup>
