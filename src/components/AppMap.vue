@@ -1,7 +1,12 @@
 <template>
-  <div :class="['map-wrapper', {
-    hidden: !partyStore.mapVisible
-  }]">
+  <div
+    :class="[
+      'map-wrapper',
+      {
+        hidden: !partyStore.mapVisible,
+      },
+    ]"
+  >
     <div
       @click.stop="partyStore.mapVisible = false"
       class="map-substrate"
@@ -27,6 +32,10 @@ const appmap = ref(null);
 
 // leaflet
 let map;
+const myIcon = leaflet.divIcon({
+  className: 'my-div-icon',
+  iconSize: [40, 53],
+});
 onMounted(() => {
   map = leaflet.map(appmap.value).setView([lat.value, lon.value], 9);
 
@@ -45,19 +54,19 @@ onMounted(() => {
       }
     )
     .addTo(map);
-  leaflet.marker([lat.value, lon.value]).addTo(map);
+  leaflet.marker([lat.value, lon.value], { icon: myIcon }).addTo(map);
 });
 
 onUpdated(() => {
   map.setView([lat.value, lon.value], 9);
-  leaflet.marker([lat.value, lon.value]).addTo(map);
+  leaflet.marker([lat.value, lon.value], { icon: myIcon }).addTo(map);
 });
 </script>
 
 <style lang="scss" scoped>
 .map {
   // padding: 20px;
-  border: 2px solid teal;
+  border: 2px solid $color-accent;
   width: 80%;
   height: 80%;
 }
@@ -66,14 +75,14 @@ onUpdated(() => {
   position: fixed;
   top: 0;
   left: 0;
-  width: 80%;
+  width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.85);
   padding: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all .35s;
+  transition: all 0.35s;
 }
 .map-substrate {
   position: absolute;
