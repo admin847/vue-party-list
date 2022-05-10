@@ -13,9 +13,7 @@
       <img :src="currentParty.img" :alt="currentParty.title" />
     </div>
     <div class="inner-subtitle">
-      <h2 class="h2">
-        Детальна інформація
-      </h2>
+      <h2 class="h2">Детальна інформація</h2>
     </div>
     <div class="inner-description">
       <app-button @click="showHideMap" class="map-button">
@@ -62,6 +60,12 @@ onBeforeMount(() => {
   if (currentParty.value) {
     partyStore.setCurrentPartyLocation(currentParty.value.coordinates);
   }
+  document.body.scrollTo({
+    top: 0,
+  });
+  document.documentElement.scrollTo({
+    top: 0,
+  });
 });
 
 const showHideMap = () => {
