@@ -1,30 +1,54 @@
+@import '../fonts/fonts';
 @import './helpers/helpers';
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
   overflow-x: hidden;
-  font-family: sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 16px;
+  background-color: $color-black;
+  color: $color-white;
 }
 
 .container {
   max-width: 1200px;
   margin: 50px auto;
-  padding: 0 15px;
+  border: 2px solid $color-white;
+}
+
+.h1,
+.h2,
+.h3 {
+  line-height: 120%;
+  font-family: 'ST-SimpleSquare', sans-serif;
+}
+
+.h1,
+.h2 {
+  color: $color-accent;
 }
 
 .h1 {
   font-size: 50px;
-  margin-bottom: 30px;
 }
 
 .h2 {
-  font-size: 32px;
+  font-size: 30px;
 }
 
 .h3 {
   font-size: 22px;
+}
+
+.text {
+  line-height: 150%;
+}
+
+a {
+  text-decoration: none;
 }
